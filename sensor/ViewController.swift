@@ -31,14 +31,24 @@ class ViewController: UIViewController {
         
         let moc = ad.persistentContainer.viewContext
         
-        let sensorEntity = NSEntityDescription.entity(forEntityName: "Sensor", in: moc)
+        let fr = NSFetchRequest<NSManagedObject>(entityName: "Sensor")
         
-        let sensor = NSManagedObject(entity: sensorEntity!, insertInto: moc)
+        var sensors : [NSManagedObject] = [];
+        sensors = try! moc.fetch(fr)
+        if(sensors.count == 0){
         
-        for i in 1...20 {
-            sensor.setValue("S \(i)", forKey: "name")
-            sensor.setValue("Sensor number \(i)", forKey: "desc")
-            try? moc.save()
+            let sensorEntity = NSEntityDescription.entity(forEntityName: "Sensor", in: moc)
+        
+        
+        
+        
+            for i in 1...20 {
+                print(i)
+                let sensor = NSManagedObject(entity: sensorEntity!, insertInto: moc)
+                sensor.setValue("S \(i)", forKey: "name")
+                sensor.setValue("Sensor number \(i)", forKey: "desc")
+                try? moc.save()
+            }
         }
     }
 }

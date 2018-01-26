@@ -1,5 +1,5 @@
 //
-//  SensorController.swift
+//  ReadingController.swift
 //  sensor
 //
 //  Created by Użytkownik Gość on 26.01.2018.
@@ -10,10 +10,13 @@ import UIKit
 import CoreData
 import Foundation
 
-
-class SensorController: UIViewController, UITableViewDataSource {
+class ReadingCell: UITableViewCell {
     
-    @IBOutlet weak var sensorsTableView: UITableView!
+}
+
+class ReadingController: UIViewController, UITableViewDataSource {
+    
+    @IBOutlet weak var readingTableView: UITableView!
     
     var sensors : [NSManagedObject] = [];
     
@@ -42,7 +45,7 @@ class SensorController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "SensorCell")
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "SensorCell", for: indexPath)
+        //        let cell = tableView.dequeueReusableCell(withIdentifier: "SensorCell", for: indexPath)
         
         let sensor = sensors[indexPath.row]
         
