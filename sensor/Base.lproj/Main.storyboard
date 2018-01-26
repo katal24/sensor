@@ -20,13 +20,20 @@
                     <view key="view" contentMode="scaleToFill" id="uSv-YL-GWi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aHj-r5-DSu">
+                                <rect key="frame" x="16" y="20" width="343" height="590"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="LkA-Pp-DwP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lzr-Iw-3uk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="851"/>
+            <point key="canvasLocation" x="848.79999999999995" y="850.52473763118451"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="ice-LU-73j">
@@ -39,13 +46,20 @@
                     <view key="view" contentMode="scaleToFill" id="X8A-Gf-wVN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CPG-CK-VHh">
+                                <rect key="frame" x="16" y="20" width="343" height="590"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="zGx-HQ-Sbs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pb0-hQ-4xr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="849" y="80"/>
+            <point key="canvasLocation" x="848.79999999999995" y="79.610194902548727"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UfZ-nv-vwD">
