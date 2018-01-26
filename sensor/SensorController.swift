@@ -49,6 +49,7 @@ class SensorController: UIViewController, UITableViewDataSource {
         cell.textLabel?.text = sensor.value(forKey: "name") as! String?
         cell.detailTextLabel?.text = sensor.value(forKey: "desc") as! String?
         
+        
         return cell
     }
     
