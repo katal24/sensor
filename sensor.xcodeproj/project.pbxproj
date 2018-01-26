@@ -13,6 +13,7 @@
 		ACE45CA4201B22A400ACC0FD /* sensor.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE45CA2201B22A400ACC0FD /* sensor.xcdatamodeld */; };
 		ACE45CA6201B22A400ACC0FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACE45CA5201B22A400ACC0FD /* Assets.xcassets */; };
 		ACE45CA9201B22A400ACC0FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACE45CA7201B22A400ACC0FD /* LaunchScreen.storyboard */; };
+		ACE45CB1201B390800ACC0FD /* SensorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE45CB0201B390800ACC0FD /* SensorController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		ACE45CA5201B22A400ACC0FD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ACE45CA8201B22A400ACC0FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ACE45CAA201B22A400ACC0FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ACE45CB0201B390800ACC0FD /* SensorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				ACE45C9B201B22A300ACC0FD /* AppDelegate.swift */,
 				ACE45C9D201B22A300ACC0FD /* ViewController.swift */,
 				ACE45C9F201B22A400ACC0FD /* Main.storyboard */,
+				ACE45CB0201B390800ACC0FD /* SensorController.swift */,
 				ACE45CA5201B22A400ACC0FD /* Assets.xcassets */,
 				ACE45CA7201B22A400ACC0FD /* LaunchScreen.storyboard */,
 				ACE45CAA201B22A400ACC0FD /* Info.plist */,
@@ -142,6 +145,7 @@
 				ACE45CA4201B22A400ACC0FD /* sensor.xcdatamodeld in Sources */,
 				ACE45C9E201B22A300ACC0FD /* ViewController.swift in Sources */,
 				ACE45C9C201B22A300ACC0FD /* AppDelegate.swift in Sources */,
+				ACE45CB1201B390800ACC0FD /* SensorController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
