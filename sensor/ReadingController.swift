@@ -63,7 +63,8 @@ class ReadingController: UIViewController, UITableViewDataSource {
         let value = reading.value(forKey: "value")!
         cell.value.text = "\(value)"
         let date = reading.value(forKey: "timestamp")!
-        cell.timestamp.text =  "\(date)"
+        let dateStr = "\(date)"
+        cell.timestamp.text =  dateStr.substring(to: dateStr.index(dateStr.startIndex, offsetBy: 19))
         let sensor = reading.value(forKey: "sensor")!
         cell.sensor.text = "\((sensor as! Sensor).name!)"
         

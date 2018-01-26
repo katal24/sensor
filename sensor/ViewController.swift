@@ -15,6 +15,8 @@ class ViewController: UIViewController {
  
     @IBOutlet weak var numerToGenerate: UITextField!
     
+    @IBOutlet weak var resultsTextView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         generateSensors();
@@ -29,12 +31,19 @@ class ViewController: UIViewController {
 
 
     @IBAction func generate(_ sender: Any) {
+        let startTime = NSDate()
+
         let number = (numerToGenerate?.text)!
         let numberInt = Int(number)
         
         generateReadings(number: numberInt ?? 0);
+        
+        // do something
+        
+        let finishTime = NSDate()
+        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        print("GENERATE \(numberInt!) READINGS - TIME: \(measuredTime)")
     }
-    
     
     @IBAction func deleteReadings(_ sender: Any) {
         var readings : [NSManagedObject] = [];
@@ -52,9 +61,128 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    @IBAction func findTimestamps(_ sender: Any) {
+        let startTime = NSDate()
+        guard let ad = UIApplication.shared.delegate  as? AppDelegate else {
+            return
+        }
+        let moc = ad.persistentContainer.viewContext
+
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Reading")
+        fr.resultType = .dictionaryResultType
+        let ed = NSExpressionDescription()
+        ed.name = "MinimumTimestamp"
+        ed.expression = NSExpression(format: "@min.timestamp")
+        ed.expressionResultType = .dateAttributeType
+        fr.propertiesToFetch = [ed]
+        do {
+            let minDate = try moc.fetch(fr)
+            print(minDate)
+        } catch let error as NSError{
+            print(error)
+        }
+        
+        let ed2 = NSExpressionDescription()
+        ed2.name = "MaximumTimestamp"
+        ed2.expression = NSExpression(format: "@max.timestamp")
+        ed2.expressionResultType = .dateAttributeType
+        fr.propertiesToFetch = [ed2]
+        do {
+            fr.propertiesToFetch = [ed]
+            let minDateTemp = try moc.fetch(fr)
+            let minDate = (minDateTemp[0] as AnyObject)["MinimumTimestamp"]!!
+            fr.propertiesToFetch = [ed2]
+            let maxDateTemp = try moc.fetch(fr)
+            let maxDate = (maxDateTemp[0] as AnyObject)["MaximumTimestamp"]!!
+            resultsTextView.text = "Minimum timestamp: \(minDate), maximum timestamp: \(maxDate)"
+        } catch let error as NSError{
+            print(error)
+        }
+        
+        let finishTime = NSDate()
+        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        print("FIND MAX AND MIN TIME - TIME: \(measuredTime)")
+    }
     
 
+    @IBAction func caltulateAvg(_ sender: Any) {
+        let startTime = NSDate()
+        guard let ad = UIApplication.shared.delegate  as? AppDelegate else {
+            return
+        }
+        let moc = ad.persistentContainer.viewContext
+        
+
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Reading")
+        fr.resultType = .dictionaryResultType
+        let ed = NSExpressionDescription()
+        ed.name = "avgValues"
+        let arguments = NSExpression(forKeyPath: "value")
+        ed.expression = NSExpression(forFunction: "average:", arguments: [arguments]);
+        ed.expressionResultType = .floatAttributeType
+        fr.propertiesToFetch = [ed]
+        do {
+            let avg = try moc.fetch(fr)
+            let result = (avg[0] as AnyObject)["avgValues"]!!
+            resultsTextView.text = "Average value of all sensors: \(result)"
+        } catch let error as NSError{
+            print(error)
+        }
+        let finishTime = NSDate()
+        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        print("CALCULATE AVERAGE OF ALL SENSORS - TIME: \(measuredTime)")
+    }
+    
+    @IBAction func calculateAvgByGroup(_ sender: Any) {
+        let startTime = NSDate()
+        guard let ad = UIApplication.shared.delegate  as? AppDelegate else {
+            return
+        }
+        let moc = ad.persistentContainer.viewContext
+        
+        
+        let fr = NSFetchRequest<NSFetchRequestResult>(entityName: "Reading")
+        fr.resultType = .dictionaryResultType
+        let ed = NSExpressionDescription()
+        ed.name = "avgValues"
+        let arguments = NSExpression(forKeyPath: "value")
+        ed.expression = NSExpression(forFunction: "average:", arguments: [arguments]);
+        ed.expressionResultType = .floatAttributeType
+        
+        let ed2 = NSExpressionDescription()
+        ed2.name = "count"
+        let arguments2 = NSExpression(forKeyPath: "value")
+        ed2.expression = NSExpression(forFunction: "count:", arguments: [arguments2]);
+        ed2.expressionResultType = .integer16AttributeType
+        
+
+        
+        do {
+            fr.propertiesToGroupBy = ["sensor"]
+            fr.propertiesToFetch = [ed]
+            
+            let avg = try moc.fetch(fr)
+            resultsTextView.text = ""
+            
+            fr.propertiesToFetch = [ed2]
+            let count = try moc.fetch(fr)
+          
+            for i in 0...(avg.count-1) {
+                let result1 = (avg[i] as AnyObject)["avgValues"]!!
+                let result2 = (count[i] as AnyObject)["count"]!!
+                resultsTextView.text = resultsTextView.text + "Sensor 1: number=\(result2), average=\(result1) \n"
+            }
+            
+        } catch let error as NSError{
+            print(error)
+        }
+        
+        let finishTime = NSDate()
+        let measuredTime = finishTime.timeIntervalSince(startTime as Date)
+        print("CALCULATE AVERAGE BY GROUP - TIME: \(measuredTime)")
+    }
+
+    
     func generateSensors() {
         guard let ad = UIApplication.shared.delegate  as? AppDelegate else {
             return
@@ -71,7 +199,7 @@ class ViewController: UIViewController {
             let sensorEntity = NSEntityDescription.entity(forEntityName: "Sensor", in: moc)
         
             for i in 1...20 {
-                print(i)
+                
                 let sensor = NSManagedObject(entity: sensorEntity!, insertInto: moc)
                 sensor.setValue("S \(i)", forKey: "name")
                 sensor.setValue("Sensor number \(i)", forKey: "desc")
@@ -94,7 +222,7 @@ class ViewController: UIViewController {
         
             
         for i in 1...number {
-            print("reading \(i)")
+            
             let reading = NSManagedObject(entity: readingEntity!, insertInto: moc)
             reading.setValue(randFloat(), forKey: "value")
             reading.setValue(randDate(), forKey: "timestamp")
