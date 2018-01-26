@@ -77,7 +77,6 @@ class ViewController: UIViewController {
         fr.propertiesToFetch = [ed]
         do {
             let minDate = try moc.fetch(fr)
-            print(minDate)
         } catch let error as NSError{
             print(error)
         }
@@ -90,9 +89,11 @@ class ViewController: UIViewController {
         do {
             fr.propertiesToFetch = [ed]
             let minDateTemp = try moc.fetch(fr)
+            print("RESULT:  \(minDateTemp) \n")
             let minDate = (minDateTemp[0] as AnyObject)["MinimumTimestamp"]!!
             fr.propertiesToFetch = [ed2]
             let maxDateTemp = try moc.fetch(fr)
+            print("RESULT:  \(maxDateTemp) \n")
             let maxDate = (maxDateTemp[0] as AnyObject)["MaximumTimestamp"]!!
             resultsTextView.text = "Minimum timestamp: \(minDate), maximum timestamp: \(maxDate)"
         } catch let error as NSError{
@@ -123,6 +124,7 @@ class ViewController: UIViewController {
         fr.propertiesToFetch = [ed]
         do {
             let avg = try moc.fetch(fr)
+            print("RESULT:  \(avg) \n")
             let result = (avg[0] as AnyObject)["avgValues"]!!
             resultsTextView.text = "Average value of all sensors: \(result)"
         } catch let error as NSError{
@@ -163,14 +165,16 @@ class ViewController: UIViewController {
             
             let avg = try moc.fetch(fr)
             resultsTextView.text = ""
+            print("RESULT:  \(avg) \n")
             
             fr.propertiesToFetch = [ed2]
             let count = try moc.fetch(fr)
-          
+            print("RESULT:  \(count) \n")
+           
             for i in 0...(avg.count-1) {
                 let result1 = (avg[i] as AnyObject)["avgValues"]!!
                 let result2 = (count[i] as AnyObject)["count"]!!
-                resultsTextView.text = resultsTextView.text + "Sensor 1: number=\(result2), average=\(result1) \n"
+                resultsTextView.text = resultsTextView.text + "Sensor \(i): number=\(result2), average=\(result1) \n"
             }
             
         } catch let error as NSError{
